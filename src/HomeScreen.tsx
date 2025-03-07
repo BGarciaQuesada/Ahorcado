@@ -4,8 +4,12 @@ import { View, Button, Image, StyleSheet } from 'react-native';
 const HomeScreen = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
+      <Image
+        style={styles.image}
+        source={require('../assets/LogoAhorcado.png')}
+      /> 
       <Button 
-        title="Ir al Juego" 
+        title="Nueva partida" 
         onPress={() => navigation.navigate('Juego')}
       />
     </View>
@@ -20,8 +24,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   image: {
-    width: 200,
-    height: 200,
+    width: 300,
+    height: 300,
     marginBottom: 20,
   },
 });
