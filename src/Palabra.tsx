@@ -18,7 +18,7 @@ const Palabra = ({
                 {palabra.split("").map((letra, index) => (
                     <View style={estilosPalabra.lineaLetra} key={index}>
                         <Text style={estilosPalabra.estiloLetra(letra, letrasAdivinadas, revelar)}>
-                            {letra}
+                            {letrasAdivinadas.includes(letra) || revelar ? letra : "_"}
                         </Text>
                     </View>
                 ))}
@@ -29,7 +29,8 @@ const Palabra = ({
 
 const estilosPalabra = {
     contenedor: {
-        gap: 5,
+        flexDirection: "row",
+        gap: 7,
         fontSize: 100,
         fontWeight: "bold",
         fontFamily: "monospace",
@@ -41,12 +42,7 @@ const estilosPalabra = {
     },
 
     estiloLetra: (letra: string, letrasAdivinadas: string[], revelar: boolean) => ({
-        visible:
-            letrasAdivinadas.includes(letra) || revelar
-                ? "visible"
-                : "hidden",
-        color:
-            !letrasAdivinadas.includes(letra) && revelar ? "red" : "black",
+        color: !letrasAdivinadas.includes(letra) && revelar ? "red" : "black",
     }),
 }
 

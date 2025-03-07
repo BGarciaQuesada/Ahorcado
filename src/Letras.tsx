@@ -1,8 +1,10 @@
-import { View, SafeAreaView, Button, StyleSheet, TouchableOpacity, Text } from 'react-native'
+import { View, SafeAreaView, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import React from 'react'
 
 // Hago un array con todas las letras del abecedario y luego para crear cada tecla las mapeo
-const conjuntoLetras = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+const conjuntoLetras = [
+    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+];
 
 type KeyboardProps = {
     // Arrays para ir guardando que letras se pueden utilizar o no
@@ -13,7 +15,6 @@ type KeyboardProps = {
     // Esto será para desactivar los botones cuando se pierda/gane
     deshabilitadas?: boolean
 }
-
 
 const Letras = ({
     letrasActivas,
@@ -36,15 +37,15 @@ const Letras = ({
                 ];
 
                 return (
-                    // Ya no es un botón, tengo que ponerle lo que va en su interior aparte...
-                    <TouchableOpacity
-                        key={key} // La letra (valor), lo visible está en Text
-                        onPress={() => ponerLetraAdivinada(key)} // Al pulsar, llamar método y ponerla en inactiva
-                        style={estiloBoton} // Cambiar color según estado
-                        disabled={inactivas || activas || deshabilitadas} // Poner estado según lo que ocurra
-                    >
-                        <Text style={styles.textoBoton}>{key}</Text>
-                    </TouchableOpacity>
+                    <View style={styles.view} key={key}>
+                        <TouchableOpacity
+                            onPress={() => ponerLetraAdivinada(key)} // Al pulsar, llamar método y ponerla en inactiva
+                            style={estiloBoton} // Cambiar color según estado
+                            disabled={inactivas || activas || deshabilitadas} // Poner estado según lo que ocurra
+                        >
+                            <Text style={styles.textoBoton}>{key}</Text>
+                        </TouchableOpacity>
+                    </View>
                 );
             })}
         </View>
@@ -57,35 +58,42 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-evenly',
-        gap: 10,
+        width: '100%', // Asegura que ocupe todo el ancho disponible
+        maxWidth: 500, // Limita el ancho máximo del contenedor para que no se sobrepase
+        alignItems: 'center',
+        paddingVertical: 10, 
     },
 
     // ESTILO PROMEDIO DE TODOS LOS BOTONES DE LETRA
     boton: {
         borderColor: 'black',
-        borderWidth: 5,
-        width: '30%',
-        height: 0,
-        paddingTop: '30%',
+        borderWidth: 2,
+        width: 40, // Ancho fijo para evitar que se desborde
+        height: 40, // Alto fijo para mantener las proporciones
+        margin: 5, // Espacio entre botones
         alignItems: 'center',
         justifyContent: 'center',
         fontWeight: 'bold',
-        cursor: 'pointer', // Esto es cambiar el cursor, nada más
+    },
+
+    view: {
+        height: 50, // Altura del contenedor para cada botón
+        width: 50, // Ancho del contenedor para cada botón
     },
 
     textoBoton: {
-        fontSize: 30,
+        fontSize: 20,
         color: 'black',
     },
 
     // Estilos según el estado del botón
     activa: {
-        backgroundColor: 'orange',
+        backgroundColor: 'lightgreen',
         color: 'white',
     },
 
     inactiva: {
-        backgroundColor: 'lightorange',
+        backgroundColor: 'lightcoral',
     },
 
     deshabilitada: {
@@ -93,4 +101,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Letras
+export default Letras;
