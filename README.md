@@ -1,97 +1,80 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Juego del Ahorcado
 
-# Getting Started
+Este es un juego clásico del Ahorcado desarrollado en un proyecto base de React Native utilizando TypeScript.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Características
 
-## Step 1: Start Metro
+### Pantalla de Inicio
+Contiene una imagen representativa del juego y un botón para comenzar una nueva partida.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+### Pantalla de Juego
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+Muestra la palabra oculta que se va revelando a medida que el jugador adivina correctamente.
 
-```sh
-# Using npm
-npm start
+Para ello, hay un teclado interactivo para seleccionar letras que se colorea según si están en la palabra o no.
 
-# OR using Yarn
-yarn start
+Alternativamente hay un campo de texto para escribir las letras manualmente.
+
+
+## Explicación del código
+
+En primer lugar, la pantalla de inicio (HomeScreen) usa React Navigation para llevar a la pantalla de juego (Juego) mediante un botón.
+
+Una vez se decida iniciar una nueva partida, se hace un fetch a una API de palabras aleatorias para obtener la palabra a adivinar y se pone en mayúsculas.
+
+Dicha palabra se ocultará transformándose en guiones. Cuando una letra incluida en la palabra es seleccionada, entrará al array de letras actuales y se recorrerá la palabra, sustituyendo en los huecos correspondientes. En caso de que no, se añadirá al array de letras incorrectas.
+
+Tanto si la letra seleccionada está en la palabra o no, entrará al array de letras adivinadas y se cambiará de color en el teclado según sea activa (verde) o inactiva (rojo). Para comprobar si está, simplemente se filtrará según si la palabra la incluye o no.
+
+Para generar el teclado, se recorre un array con todas las letras del abecedario inglés y se van creando TouchableOpacity para cada una.
+
+Se dará un total de 5 intentos para adivinar la palabra. Tanto si se acierta como si no, se deshabilitarán las teclas recorriendo una vez más el teclado y se revelará un texto de victoria o fracaso según lo ocurrido. Por último, se mostrará la palabra completa si no se acertó.
+
+Para reiniciar el juego, basta con retroceder a la pantalla de inicio y pulsar de nuevo el botón de iniciar partida.
+
+
+## Objetivos conseguidos
+
+### Creación de Componentes Adaptados a la Aplicación
+Se han implementado componentes reutilizables y modulares adaptados a los requerimientos específicos de la aplicación.
+
+### Diseño del Menú y Gestión entre Pantallas
+Se ha creado un menú intuitivo y funcional con navegación fluida entre pantallas.
+
+### Uso de Datos Externos
+Se integran correctamente datos externos en la aplicación (fetch de la palabra aleatoria) con un manejo eficiente de la asincronía y errores en la carga de datos.
+
+### Creación de Componentes Dinámicos
+Se han implementado componentes que se adapten a los datos recibidos (ocultación y revelación gradual de la palabra).
+
+También hay una correcta actualización de los componentes al recibir nueva información (teclado interactivo que cambia de color según si se encuentra la letra en la palabra).
+
+### Uso de Contextos Definidos
+Se aplican de los contextos desarrollados en el curso implementando adecuadamente proveedores y consumidores de contexto (estados del estado de adivinación de la palabra y letras usadas).
+
+### Kotlin
+
+No se ha realizado adaptación a Kotlin de esta aplicación.
+## Instalación
+
+Clona el repositorio:
+
+```bash
+git clone https://github.com/BGarciaQuesada/Ahorcado.git
+cd ahorcado
 ```
 
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+Instala las dependencias:
+```bash
+npm install
 ```
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+o si usas Yarn:
+```bash
+yarn install
 ```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Inicia la aplicación en un dispositivo o emulador:
+```bash
+npx react-native run-android   # Para Android
+npx react-native run-ios       # Para iOS (requiere macOS)
+```    
